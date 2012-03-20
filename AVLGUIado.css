@@ -1,0 +1,27 @@
+body{
+	background-color:#E5F4FF;
+	font-family:"calibri","Helvetica";
+
+}
+
+table{
+	background-color:#ffffff;
+	border:0.2em solid #249493;
+	padding:10px;
+}
+
+.window { 
+	border:0.2em solid #42392E; 
+	width:30px;
+	height:30px; 
+	color:#249493;		
+	font-size:1.3em;
+	font-weight:bold;
+	text-align:center;
+	background-color:#ffffff;
+	cursor:pointer;
+	position:absolute;
+	top:50px;
+	left:50px;
+	line-height:30px;
+}

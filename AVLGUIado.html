@@ -1,0 +1,128 @@
+<html>
+<head>
+	<link rel="stylesheet" href="jquery/css/uniform.default.css" type="text/css" media="screen" charset="utf-8" />
+	<script src="jquery/jquery.min.js"></script>
+	<script src="jquery/jquery-ui.min.js"></script>
+	<script src="jquery/jquery.jsPlumb-1.3.2-all-min.js"></script>
+	<script src="jquery/jquery.uniform.min.js"></script>
+	<script src="AVLGUIado.js"></script>
+</head>
+<body>
+<table>
+	<tr>
+		<td colspan="2" align="center">
+			<img src="AVLGuiado.png"/>
+		</td>
+	</tr>
+	<tr>
+		<td height="10"></td>
+	</tr>
+	<tr>
+		<td>Datos:</td><td><input type="text" id="datos" value="1,2,3,4,5,6,7,8,9,10,11"/></td>
+	</tr>
+	<tr>
+		<td>Modo del Arbol:</td>
+		<td>
+			<input type="radio" name="modo" id="modo1" value="continuo"/> continuo<br>
+			<input type="radio" name="modo" id="modo2" value="interactivo" checked="checked"/> interactivo<br>
+		</td>
+	</tr>	
+	<tr>
+		<td height="10"></td>
+	</tr>
+	<tr>
+		<td colspan="2" align="center"><input type="button" onclick="generaAVL()" value="Crear Arbol AVL"/></td>
+	</tr>
+</table>
+
+
+<div id="arbol">
+</div>
+
+</body>
+</html>
+<style>
+body{
+	background-color:#E5F4FF;
+font-family:"calibri","Helvetica";
+
+}
+
+table{
+	background-color:#ffffff;
+	border:0.2em solid #249493;
+
+padding:10px;
+}
+.window { 
+	border:0.2em solid #42392E; 
+	width:30px;
+	height:30px; 
+	color:#249493;	
+	
+	font-size:1.3em;
+	font-weight:bold;
+	text-align:center;
+	background-color:#ffffff;
+	cursor:pointer;
+	position:absolute;
+	top:50px;
+	left:50px;
+	line-height:30px;
+}
+</style>
+<script>
+
+
+jsPlumb.bind("ready", function() {
+
+	// chrome fix.
+	document.onselectstart = function () { return false; };				
+
+    // render mode
+	var resetRenderMode = function(desiredMode) {
+		var newMode = jsPlumb.setRenderMode(desiredMode);
+		$(".rmode").removeClass("selected");
+		$(".rmode[mode='" + newMode + "']").addClass("selected");
+		var disableList = (newMode === jsPlumb.VML) ? ".rmode[mode='canvas'],.rmode[mode='svg']" : ".rmode[mode='vml']"; 
+		$(disableList).attr("disabled", true);				
+		jsPlumbDemo.init();
+	};
+    
+	resetRenderMode(jsPlumb.CANVAS);
+       
+});
+;(function() {
+	
+	window.jsPlumbDemo = {
+			
+		init : function(){			
+
+			var fillColor = "gray";			
+			jsPlumb.Defaults.Connector = [ "Bezier", { curviness:50 } ];
+			jsPlumb.Defaults.DragOptions = { cursor: "pointer", zIndex:2000 };
+			jsPlumb.Defaults.PaintStyle = { strokeStyle:"666666", lineWidth:4 };
+			jsPlumb.Defaults.EndpointStyle = { radius:4, fillStyle:"666666" };
+			jsPlumb.Defaults.Anchors =  [ "BottomCenter", "TopCenter" ];
+				
+			var arrowCommon = { foldback:0.7, fillStyle:fillColor, width:14 };
+			
+			$("input:text, input:radio, input:button").uniform();		
+			
+			$("input:radio").click(function(){				
+				$.uniform.update("input:radio");
+			});
+			
+
+		}				
+		
+	};
+  
+	
+})();
+
+
+
+
+
+</script>
